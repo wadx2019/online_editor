@@ -27,5 +27,10 @@
 
 ## Flow diagram
 
-## protocol
+## Division of labor
+  - Shutong Ding:server
+  - Hengquan Mei:back and resources
+  - Huan Yang:front
+  
+## Protocol
 - pass
