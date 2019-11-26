@@ -26,6 +26,7 @@
 [获取ER图(密码：shujuku)](https://www.processon.com/view/link/5ddc8206e4b034050df1ec9f?pw=shujuku)
 
 ## Flow diagram
+[获取控制流图(密码：shujuku)](https://www.processon.com/view/link/5dc6ce65e4b0fc314a096460)
 
 ## Division of labor
   - Shutong Ding:server
