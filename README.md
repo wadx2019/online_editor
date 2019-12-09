@@ -34,4 +34,7 @@
   - Huan Yang:front
   
 ## Protocol
-- pass
+- ### response:
+  - state:0:发生了某种错误,1:成功,2:cookie失效
+  - pno:项目号
+
