@@ -209,9 +209,12 @@ def modifyPasswd():
     response={"state":0}
     key={'uname':request.form['uname'],'upasswd':request.form['upasswd']}
     value={'upasswd':request.form['newpasswd']}
-    if dbop.select_by_key('UESRS',key) and dbop.update('USERS',key,value):
+    if dbop.select_by_key('USERS',key) and dbop.update('USERS',key,value):
         response['state']=1
-        name_psd.remove((request.form.get('uname'),request.form.get('upasswd')))
+        try:
+            name_psd.pop((request.form.get('uname'),request.form.get('upasswd')))
+        except:
+            pass
     return json.dumps(response)
 if __name__=='__main__':
     try:
