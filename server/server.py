@@ -219,10 +219,10 @@ def modifyPasswd():
 if __name__=='__main__':
     try:
         main_t=threading.Thread(target=main)
+        main_t.setDaemon(True)
         main_t.start()
         dbop=dbOperation(host='127.0.0.1',port=3306,user='root',passwd='',database='TEST')
         app.run(host='0.0.0.0',port=7000,debug=False,threaded=True)
-        main_t.join()
     except Exception as e:
         print(e)
     finally:
