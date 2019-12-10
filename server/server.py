@@ -12,7 +12,6 @@ import json
 import datetime
 import time
 import threading
-
 app=Flask(__name__)
 app.secret_key=os.urandom(24)
 name_psd={}
@@ -21,9 +20,8 @@ pf_editor={}
 def main():
     global name_psd,pf_editor,dbop
     while True:
-        time.sleep(60)
+        time.sleep(300)
         try:
-            print("hi")
             curtime=time.time()
             name_psd_key=[]
             for item in name_psd.items():
@@ -123,25 +121,29 @@ def query():
     response={"state":0}
     if session.get('name_psd') in name_psd:
         op=request.form.get('op')
-        if op==0:
+        if op=='pro':
             pno=request.form.get('pno')
-            key={'pno',pno}
+            key={'pno':pno}
             project=dbop.select_by_key('PROJECTS',key)[0]
+            project['CREATETIME']=project['CREATETIME'].strftime("%Y-%m-%d %H:%M:%S")
             if project:
-                pname=project['pname']
+                pname=project['PNAME']
                 files=dbop.select_by_table(pname)
                 for i in range(len(files)):
-                    files[i]={'fname':files[i]['fname'],'createtime':files[i]['createtime'],'currentedit':files[i]['currentedit']}
+                    files[i]={'fname':files[i]['fname'],'createtime':files[i]['createtime'].strftime("%Y-%m-%d %H:%M:%S"),'currentedit':files[i]['currentedit']}
                 response['poject']=project
                 response['files']=files
-        elif op==1:
+                response['state']=1
+        elif op=='file':
             pname=request.form.get('pname')
             fname=request.form.get('fname')
             key={'fname':fname}
             data=dbop.select_by_key(pname,key)
             if data:
                 file=data[0]
+                file['createtime']=file['createtime'].strftime("%Y-%m-%d %H:%M:%S")
                 response['file']=file
+                response['state']=1
     else:
         response['state']=2
     return json.dumps(response)
@@ -153,7 +155,7 @@ def removeProject():
         pname=request.form.get('pname')
         key={'pname':pname}
         tmp=dbop.select_by_key('PROJECTS',key)
-        if tmp[0]['pmaster']==session.get("name_psd")[0]:
+        if tmp[0]['PMASTER']==session.get("name_psd")[0]:
             if dbop.delete_by_table(pname) and dbop.delete_by_key('PROJECTS',key):
                 response['state']=1
         else:
@@ -194,7 +196,12 @@ def finishFile():
 def logout():
     global dbop
     response={"state":0}
-    name_psd.pop((request.form.get('uname'),request.form.get('upasswd')))
+    try:
+        name_psd.pop((request.form.get('uname'),request.form.get('upasswd')))
+        session.clear()
+        response['state']=1
+    except:
+        pass
     return json.dumps(response)
 @app.route('/modifyPasswd',methods=['POST'])
 def modifyPasswd():
