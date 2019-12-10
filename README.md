@@ -34,67 +34,70 @@
   - Huan Yang:front
   
 ## Protocol
-登录注册部分:
-login:
-需要参数：’uname’ , ‘upasswd’
-是否需要cookie：no
-返回：’state’:{0:密码错误或账号不存在,1:登录成功}
-register：
-需要参数：’uname’ , ‘upasswd’
-是否需要cookie：no
-返回：’state’:{0:用户名已存在,1:注册成功}
+- ### 登录注册部分:
 
-modifyPasswd:
-需要参数：’uname’ , ‘upasswd’ , ‘newpasswd’
-是否需要cookie：no
-返回: ‘state’:{0:账户不存在或原密码错误,1:修改密码成功}
+- login:
+   - 需要参数：’uname’ , ‘upasswd’
+   - 是否需要cookie：no
+   - 返回：’state’:{0:密码错误或账号不存在,1:登录成功}
 
-logout：
-需要参数：无
-是否需要cookie：yes
-返回：’state’:{0:该cookie不存在,1:登出成功}
+- register：
+   - 需要参数：’uname’ , ‘upasswd’
+   - 是否需要cookie：no
+   - 返回：’state’:{0:用户名已存在,1:注册成功}
+
+- modifyPasswd:
+   - 需要参数：’uname’ , ‘upasswd’ , ‘newpasswd’
+   - 是否需要cookie：no
+   - 返回: ‘state’:{0:账户不存在或原密码错误,1:修改密码成功}
+
+- logout：
+  - 需要参数：无
+  - 是否需要cookie：yes
+  - 返回：’state’:{0:该cookie不存在,1:登出成功}
 
 
-编辑界面：
-createProject：
-需要参数：’pname’
-是否需要cookie：yes
-返回：’state’:{0:项目名已存在,1:创建成功,2:cookie失效}
-‘pno’:项目号 CHAR(8)
+- ### 编辑界面：
 
-createFile：
-需要参数：’pname’ , ‘fname’
-是否需要cookie：yes
-返回：’state’:{0:文件名已存在,1:创建成功,2:cookie失效}
+- createProject：
+  - 需要参数：’pname’
+  - 是否需要cookie：yes
+  - 返回：’state’:{0:项目名已存在,1:创建成功,2:cookie失效}
+  - ‘pno’:项目号 CHAR(8)
 
-modifyFile:
-需要参数：’pname’ , ’fname’ , ‘fcontent’
-是否需要cookie：yes
-返回：’state’:{0:有其他用户正在修改,1:修改成功,2:cookie失效}
+- createFile：
+  - 需要参数：’pname’ , ‘fname’
+  - 是否需要cookie：yes
+  - 返回：’state’:{0:文件名已存在,1:创建成功,2:cookie失效}
 
-query：
-需要参数：’op’:{‘pro’:返回项目信息,’file’:返回文件信息}
-‘pro’情况下所需参数：‘pno’  
-‘file’情况下所需参数：’pname’ , ‘fname’
-是否需要cookie：yes
-返回：’state’:{0:项目名已存在,1:创建成功,2:cookie失效}
-‘pro’情况下：’project’={’pname’ , ‘createtime’ , ‘pmaster’} , ‘files’=[{‘fname’ , ’currentedit’ , ‘createtime’} for i in文件数]
-‘file’情况下：’file’:{‘fname’ , ’currentedit’ , ‘createtime’ , ‘fcontent’}
+- modifyFile:
+  - 需要参数：’pname’ , ’fname’ , ‘fcontent’
+  - 是否需要cookie：yes
+  -返回：’state’:{0:有其他用户正在修改,1:修改成功,2:cookie失效}
 
-finishFile：
-需要参数：’pname’ , ’fname’
-是否需要cookie：yes
-返回：’state’:{0:您不是当前修改者,1:结束成功,2:cookie失效}
+- query：
+  - 需要参数：’op’:{‘pro’:返回项目信息,’file’:返回文件信息}
+  - ‘pro’情况下所需参数：‘pno’  
+  - ‘file’情况下所需参数：’pname’ , ‘fname’
+  - 是否需要cookie：yes
+  - 返回：’state’:{0:项目名已存在,1:创建成功,2:cookie失效}
+  - ‘pro’情况下：’project’={’pname’ , ‘createtime’ , ‘pmaster’} , ‘files’=[{‘fname’ , ’currentedit’ , ‘createtime’} for i in文件数]
+  - ‘file’情况下：’file’:{‘fname’ , ’currentedit’ , ‘createtime’ , ‘fcontent’}
 
-removeProject：
-需要参数：’pname’
-是否需要cookie：yes
-返回：’state’:{0:该项目正在被他人编辑,1:删除成功,2:cookie失效,3:您不是该项目所有者或不存在该项目}
+- finishFile：
+  - 需要参数：’pname’ , ’fname’
+  - 是否需要cookie：yes
+  - 返回：’state’:{0:您不是当前修改者,1:结束成功,2:cookie失效}
 
-removeFile:
-需要参数：’pname’ , ’fname’ 
-是否需要cookie：yes
-返回：’state’:{0:该文件正在被他人编辑,,1:删除成功,2:cookie失效}
+- removeProject：
+  - 需要参数：’pname’
+  - 是否需要cookie：yes
+  - 返回：’state’:{0:该项目正在被他人编辑,1:删除成功,2:cookie失效,3:您不是该项目所有者或不存在该项目}
+
+- removeFile:
+  - 需要参数：’pname’ , ’fname’ 
+  - 是否需要cookie：yes
+  - 返回：’state’:{0:该文件正在被他人编辑,,1:删除成功,2:cookie失效}
 
 
 
